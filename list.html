@@ -5,7 +5,7 @@
 <script>
 var itemlist = [];
 $(document).ready(function(){
-    $("button").click(function(){
+    $("#addbutton").click(function(){
         itemlist.push($("#inputter").val());
         $("#lister").html(itemlist)
         /*var buffer = "";
@@ -22,7 +22,7 @@ $(document).ready(function(){
 
 <p>	Item: 
 	<input type="text" id="inputter" value="Apples">
-	<button>Add</button>
+	<button id = "addbutton">Add</button>
 </p>
 
 <p id = "lister">  </p>

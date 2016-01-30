@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+var store1 = {
+    name:"Vons",
+    address:"1234 Main St",
+    city: "San Diego"
+}
+var store2 = {
+    name:"Fresh and Easy",
+    address:"666 Hell St",
+    city: "Hotland"
+}
+var store3 = {
+    name:"Pavilions",
+    address:"404 Error St",
+    city: "San Diego"
+}
+  $(function() {
+    var availableTags = [
+      store1.name,store2.name,store3.name
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  });
+$(document).ready(function(){
+});
+</script>
+<h1> Select Your Store </h1>
+</head>
+<body>
+
+<div class="ui-widget">
+  <label for="tags">Search: </label>
+  <input id="tags">
+</div>
+
+<p id = "createMapButton"> <button>Start</button> </p>
+</body>
+</html>
