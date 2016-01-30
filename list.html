@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+var itemlist = [];
+$(document).ready(function(){
+    $("button").click(function(){
+        itemlist.push($("#inputter").val());
+        $("#lister").html(itemlist)
+        /*var buffer = "";
+        for (var i = 0; i < itemlist.length; i++) {
+        	buffer += itemlist[i] + "\n";
+        };
+        $("#lister").html(buffer)*/
+    });
+});
+</script>
+<h1> List </h1>
+</head>
+<body>
+
+<p>	Item: 
+	<input type="text" id="inputter" value="Apples">
+	<button>Add</button>
+</p>
+
+<p id = "lister">  </p>
+
+<p > <button>Next</button> </p>
+</body>
+</html>
