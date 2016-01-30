@@ -1,1 +1,0 @@
-A faster way for grocery shopping.
