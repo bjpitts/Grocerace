@@ -1,0 +1,54 @@
+@import 'normalize';
+@import 'button';
+
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  //overflow: hidden;
+
+}
+
+$header-height: 100px;
+
+/*Layout*/
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: $header-height;
+  background-color: darkseagreen;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: $header-height;
+  background-color: darkseagreen;
+}
+.content {
+  margin: $header-height 0;
+  min-width: 100vw;
+  min-height: calc(100vh - 2 * #{$header-height});
+  background-color: yellow;
+}
+
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
