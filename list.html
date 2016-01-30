@@ -1,31 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script>
-var itemlist = [];
-$(document).ready(function(){
-    $("#addbutton").click(function(){
-        itemlist.push($("#inputter").val());
-        $("#lister").html(itemlist)
-        /*var buffer = "";
-        for (var i = 0; i < itemlist.length; i++) {
-        	buffer += itemlist[i] + "\n";
-        };
-        $("#lister").html(buffer)*/
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+    var itemlist = [];
+    var totalgrocerylist = ['Apples',"Oranges","Pears"];
+    var buffer;
+    $(document).ready(function(){
+        $("#addbutton").click(function(){
+            addItem();
+        });
     });
-});
-</script>
-<h1> List </h1>
+    $(function() {
+        updateBuffer();
+    });
+    $(document).keypress(function (e) {
+        if(e.which ==13){
+            console.log($("#tags").val());
+            addItem();
+        }
+    });
+
+    function updateBuffer() {
+        buffer = totalgrocerylist;
+        for (var i = 0; i < itemlist.length; i++) {
+            buffer = jQuery.grep(buffer, function(value){
+                return value != itemlist[i];
+            });
+            console.log("buffer = " + buffer)
+        };
+        var availableTags = buffer;
+        $( "#tags" ).autocomplete({
+          source: availableTags
+      });
+    }
+
+    function addItem() {
+        itemlist.push($("#tags").val());
+        $("#itemlister").html(itemlist);
+        updateBuffer();
+    }
+    </script>
+
+
+
+
+
+    <h1> Create Your List </h1>
 </head>
 <body>
 
-<p>	Item: 
-	<input type="text" id="inputter" value="Apples">
-	<button id = "addbutton">Add</button>
+
+    <div class="ui-widget">
+      <label for="tags">Item: </label>
+      <input type = 'text' id="tags">
+  </div>
+  <p>  
+    <button id = "addbutton">Add</button>
 </p>
 
-<p id = "lister">  </p>
+
+<p id = "itemlister">  </p>
 
 <p > <button>Next</button> </p>
 </body>
