@@ -1,0 +1,96 @@
+
+
+
+.header-text {
+  display: block;
+  position: relative;
+  margin: 30px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 40px;
+  width: auto;
+  float: left;
+}
+
+
+
+
+.back-arrow, .forward-arrow {
+  margin: 30px;
+}
+
+
+
+.back-arrow {
+  cursor: pointer;
+  float: left;
+}
+.back-arrow .bar {
+  user-select: none;
+  margin: 6px 0;
+  height: 6px;
+  width: 50px;
+  background: gray;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.back-arrow.back .bar:first-child {
+  width: 30px;
+  -webkit-transform: rotateZ(-45deg) translate(-12px, -7px);
+  -moz-transform: rotateZ(-45deg) translate(-12px, -7px);
+  -ms-transform: rotateZ(-45deg) translate(-12px, -7px);
+  transform: rotateZ(-45deg) translate(-12px, -7px);
+}
+.back-arrow.back .bar:nth-child(2n) {
+  width: 40px;
+  -webkit-transform: translateX(-3px);
+  -moz-transform: translateX(-3px);
+  -ms-transform: translateX(-3px);
+  transform: translateX(-3px);
+}
+.back-arrow.back .bar:last-child {
+  width: 30px;
+  -webkit-transform: rotateZ(45deg) translate(-12px, 7px);
+  -moz-transform: rotateZ(45deg) translate(-12px, 7px);
+  -ms-transform: rotateZ(45deg) translate(-12px, 7px);
+  transform: rotateZ(45deg) translate(-12px, 7px);
+}
+
+.forward-arrow {
+  cursor: pointer;
+  float: right;
+}
+.forward-arrow .bar {
+  user-select: none;
+  margin: 6px 0;
+  height: 6px;
+  width: 50px;
+  background: gray;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.forward-arrow.forward .bar:first-child {
+  width: 30px;
+  -webkit-transform: rotateZ(45deg) translate(12px, -7px);
+  -moz-transform: rotateZ(45deg) translate(12px, -7px);
+  -ms-transform: rotateZ(45deg) translate(12px, -7px);
+  transform: rotateZ(45deg) translate(12px, -7px);
+}
+.forward-arrow.forward .bar:nth-child(2n) {
+  width: 40px;
+  -webkit-transform: translateX(-3px);
+  -moz-transform: translateX(-3px);
+  -ms-transform: translateX(-3px);
+  transform: translateX(-3px);
+}
+.forward-arrow.forward .bar:last-child {
+  width: 30px;
+  -webkit-transform: rotateZ(-45deg) translate(12px, 7px);
+  -moz-transform: rotateZ(-45deg) translate(12px, 7px);
+  -ms-transform: rotateZ(-45deg) translate(12px, 7px);
+  transform: rotateZ(-45deg) translate(12px, 7px);
+}

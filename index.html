@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grocerace</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="header">
+    <div id="menu" class="back-arrow">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <div class="header-text">
+        Title
+    </div>
+</div>
+<div class="content">
+
+</div>
+
+<div class="footer">
+    <div class="back-arrow back">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <div class="header-text left">
+        Back
+    </div>
+
+
+    <div class="forward-arrow forward">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <div class="header-text right">
+        Forward
+    </div>
+</div>
+
+<script>
+    document.querySelector('#menu').addEventListener('click', function(){
+        if (this.classList.contains('back'))
+            this.classList.remove('back');
+        else
+            this.classList.add('back');
+    })
+</script>
+</body>
+</html>
