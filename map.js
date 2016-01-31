@@ -42,27 +42,33 @@ function mapping(notVisited){
 	allGroceries.push({key:"candy", end:true, x: 5, y: 4 });
 
 
-	var currentNode = "start"	;
-	var nextnode;
+	var currentNodeKey = "start"	;
+	var nodeTogoTowards;
 	var directions = [];
 
 	while(notVisited.length != 0)
-	{
-		directions.push(allGroceries[currentNode].key);
+	{//console.log(currentNodeKey)
+		directions.push(allGroceries[getIndexFromKey(currentNodeKey,allGroceries)].key);
 		var currentMinDist = Number.MAX_SAFE_INTEGER;
+		//find the minimum distance between current and unvisited
 		for (var i = 0; i < notVisited.length; i++) 
-		{console.log(allGroceries[currentNode])
-			var distance = distance(allGroceries[currentNode].x,
-				allGroceries[currentNode].y, allGroceries[notVisited[i]].x, 
-				allGroceries[notVisited[i]].y);
+		{	
+				console.log(getIndexFromKey(notVisited[i],allGroceries))
+				//console.log(notVisited[0])
+			var distance = distance(
+				allGroceries[getIndexFromKey(currentNodeKey,allGroceries)].x,
+				allGroceries[getIndexFromKey(currentNodeKey,allGroceries)].y, 
+				allGroceries[getIndexFromKey(notVisited[i],allGroceries)].x,
+				allGroceries[getIndexFromKey(notVisited[i],allGroceries)].y
+				);
 			if (distance < currentMinDist)
 			{
 				currentMinDist = distance;
-				nextnode = notVisited[i];
+				nodeTogoTowards = notVisited[i];
 			}
 		}
-		currentNode = nextnode;
-		currentIndex = notVisited.indexOf(currentNode);
+		currentNodeKey = nodeTogoTowards;
+		currentIndex = getIndexFromKey(currentNodeKey,notVisited);
 		notVisited.splice(currentIndex, currentIndex + 1);
 	}
 
@@ -76,8 +82,8 @@ function mapping(notVisited){
 			if (array[i].key == key)
 				return i
 		}
-		else return -1;
+		return -1;
 
 	}
 
-var x = mapping(["apples, oranges"])
+var x = mapping(["apples","oranges"])
