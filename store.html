@@ -1,53 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script>
-//example stores I guess?
-// var store1 = {
-//     name:"Vons",
-//     address:"1234 Main St",
-//     city: "San Diego"
-// }
-// var store2 = {
-//     name:"Fresh and Easy",
-//     address:"666 Hell St",
-//     city: "Hotland"
-// }
-// var store3 = {
-//     name:"Pavilions",
-//     address:"404 Error St",
-//     city: "San Diego"
-// }
-//Assume given array
-var storearray = ["Vons", "Pavilions",'Walgreens']; 
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtRAOut0Iqd_pI-dOyWMCUAneIUF62moU&libraries=places"></script>
+
+  <script>
+
+  var latpos
+  var longpos;
   $(function() {
-    var availableTags = storearray;
-    $( "#tags" ).autocomplete({
-      source: availableTags
-    });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getpos)
+    }
+
+    console.log("lat = " + latpos + " long = " + longpos)
   });
-$(document).ready(function(){
-});
 
-$(document).keypress(function (e) {
-   if(e.which ==13)
-    console.log($("#tags").val());
-});
+  function getpos(position){
+    var x = position.coords;
+    latpos = x.latitude;
+    longpos = x.longitude;
+    console.log("lat = " + latpos + " long = " + longpos)
+  }
 
-</script>
-<h1> Select Your Store </h1>
+  </script>
+  <h1> Select Your Store </h1>
 </head>
 <body>
 
-<div class="ui-widget">
-  <label for="tags">Search: </label>
-  <input type = 'text' id="tags">
-</div>
-
-<p id = "createMapButton"> <button>Start</button> </p>
 </body>
 </html>
