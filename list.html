@@ -7,7 +7,7 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
     var itemlist = [];
-    var totalgrocerylist = ['Apples',"Oranges","Pears"];
+    var totalgrocerylist = ['water','energy drinks', 'bottled soda', 'soda cans', 'candy','utensils','chips','popcorn','toppings','popsicles','ice cream','pies', 'frozen fish','frozen vegetables','tv dinners','frozen pizza','apples','buns','bread','cookies','cake','oranges' ];
     var buffer;
     $(document).ready(function(){
         $("#addbutton").click(function(){
@@ -38,8 +38,10 @@
     }
 
     function addItem() {
-        if ($.inArray($("#tags").val(), buffer) != -1 ) {
-            itemlist.push($("#tags").val());
+        var input = $("#tags").val().toLowerCase();
+
+        if ($.inArray(input, buffer) != -1 ) {
+            itemlist.push(input);
             $("#itemlister").html(itemlist);
             $("#tags").val("");
             updateBuffer();
@@ -50,13 +52,19 @@
             else window.alert("Item not in catalog")
         }
     }
+
+    function removeItem(removeditem) {
+        itemlist = jQuery.grep(itemlist, function(value){
+                return value != removeditem;
+            });
+    }
     </script>
 
 
 
 
 
-    <h1> Create Your List </h1>
+<h1> Create Your List </h1>
 </head>
 <body>
 
