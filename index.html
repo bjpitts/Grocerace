@@ -5,9 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
     <title>SouICry</title>
+
+    <link rel="stylesheet" href="materialize.css">
     <link rel="stylesheet" href="owl.carousel.css">
     <link rel="stylesheet" href="style.css">
-    <!--<script src="picturefill.js"></script>-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+        var itemlist = [];
+        var totalgrocerylist = ['water','energy drinks', 'bottled soda', 'soda cans', 'candy','utensils','chips','popcorn','toppings','popsicles','ice cream','pies', 'frozen fish','frozen vegetables','tv dinners','frozen pizza','apples','buns','bread','cookies','cake','oranges' ];
+        var buffer;
+        $(document).ready(function(){
+            $("#addbutton").click(function(){
+                addItem();
+            });
+        });
+        $(function() {
+            updateBuffer();
+        });
+        $(document).keypress(function (e) {
+            if(e.which ==13){
+                addItem();
+            }
+        });
+
+        function updateBuffer() {
+            buffer = totalgrocerylist;
+            for (var i = 0; i < itemlist.length; i++) {
+                buffer = jQuery.grep(buffer, function(value){
+                    return value != itemlist[i];
+                });
+                console.log("buffer = " + buffer)
+            };
+            var availableTags = buffer;
+            $( "#tags" ).autocomplete({
+                source: availableTags
+            });
+        }
+
+        function addItem() {
+            var input = $("#tags").val().toLowerCase();
+
+            if ($.inArray(input, buffer) != -1 ) {
+                itemlist.push(input);
+                $("#itemlister").html(itemlist);
+                $("#tags").val("");
+                updateBuffer();
+            }
+            else {
+                if ($.inArray($("#tags").val(), itemlist) != -1)
+                    window.alert("You already added that item!")
+                else window.alert("Item not in catalog")
+            }
+        }
+
+        function removeItem(removeditem) {
+            itemlist = jQuery.grep(itemlist, function(value){
+                return value != removeditem;
+            });
+
+        }
+    </script>
+
+    <script src="js/materialize.min.js"></script>
+
+
+
 </head>
 
 <body>
@@ -45,13 +112,78 @@
         <div class="cover-right"></div>
         <div class="page-wrapper">
             <div class="row">
-                <div style="width: 400px;
-                height: 1000px;background-color: red;"></div>
+                <div class="list-input">
+                    <label for="tags">Add Groceries</label>
+                    <input type="text" id="tags" placeholder="Type in your groceries"/>
+                    <button class="btn waves-effect waves-light" id="addbutton">Add</button>
+                </div>
+            </div>
+            <div class="row" id="list">
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div><div class="chip">
+                Tag
+                <i class="material-icons">close</i>
+            </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div><div class="chip">
+                Tag
+                <i class="material-icons">close</i>
+            </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div><div class="chip">
+                Tag
+                <i class="material-icons">close</i>
+            </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div><div class="chip">
+                Tag
+                <i class="material-icons">close</i>
+            </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div>
+                <div class="chip">
+                    Tag
+                    <i class="material-icons">close</i>
+                </div>
+
             </div>
             <div class="end">
                 <p></p>
             </div>
         </div>
+
+
+
         <div class="mobile-filler"></div>
         <div class="mobile-nav">
             <a href="#Store" class="mobile-right">
@@ -83,6 +215,7 @@
                 <div class="arrow">❯</div>
                 <div class="name">Generate Map</div>
             </a>
+
         </div>
     </div>
     <div class="slide Generate" data-hash="Generate">
@@ -137,13 +270,14 @@
 
     var pageTitles = ["List", "Store", "Generate", "Map"];
     var pageNames = [[null, "Select Store"], ["Back", "Generate"], [null, null], ["Back", null]];
-    var pageLoads = [[-1, 1],[0, 2],[-1, -1],[1, -1]];
+    var pageLoads = [[-1, 1], [0, 2], [-1, -1], [1, -1]];
     var navControl = [1, 1, 1, 1];
     var prevControl = [0, 1, 0, 1];
     var nextControl = [1, 1, 0, 0];
     var currentIndex = 0;
 
     jQuery(document).ready(function ($) {
+
 
         var $sync1 = $(".slider"),
                 $sync2 = $(".nav"),
