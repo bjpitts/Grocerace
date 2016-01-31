@@ -2,52 +2,250 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Grocerace</title>
-    <link rel="stylesheet" href="style.css"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+    <title>SouICry</title>
+    <link rel="stylesheet" href="owl.carousel.css">
+    <link rel="stylesheet" href="style.css">
+    <!--<script src="picturefill.js"></script>-->
 </head>
+
 <body>
-<div class="header">
-    <div id="menu" class="back-arrow">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-    </div>
-    <div class="header-text">
-        Title
-    </div>
-</div>
-<div class="content">
-
+<div id="mask">
 </div>
 
-<div class="footer">
-    <div class="back-arrow back">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+<div class="nav">
+    <div data-hash="List" class="nav-item">
+        <div>Select Items</div>
     </div>
-    <div class="header-text left">
-        Back
+    <div data-hash="Store" class="nav-item">
+        <div>Select Store</div>
     </div>
+    <div data-hash="Generate" class="nav-item">
+        <div>Generate</div>
+    </div>
+    <div data-hash="Map" class="nav-item">
+        <div>Grocery Map</div>
+    </div>
+</div>
+<div class="desktop-controls">
+    <div class="desktop-next">
+        <div class="arrow">❯</div>
+        <div class="name"></div>
+    </div>
+    <div class="desktop-prev">
+        <div class="name"></div>
+        <div class="arrow">❮</div>
+    </div>
+</div>
+<div class="slider">
+    <div class="slide List" data-hash="List">
+        <div class="nav-strip"></div>
+        <div class="cover-left"></div>
+        <div class="cover-right"></div>
+        <div class="page-wrapper">
+            <div class="row">
+                <div style="width: 400px;
+                height: 1000px;background-color: red;"></div>
+            </div>
+            <div class="end">
+                <p></p>
+            </div>
+        </div>
+        <div class="mobile-filler"></div>
+        <div class="mobile-nav">
+            <a href="#Store" class="mobile-right">
+                <div class="arrow">❯</div>
+                <div class="name">Select Store</div>
+            </a>
+        </div>
+    </div>
+    <div class="slide Store" data-hash="Store">
+        <div class="nav-strip"></div>
+        <div class="cover-left"></div>
+        <div class="cover-right"></div>
+        <div class="page-wrapper">
 
+            <div class="row">
 
-    <div class="forward-arrow forward">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+            </div>
+            <div class="end">
+                <p></p>
+            </div>
+        </div>
+        <div class="mobile-filler"></div>
+        <div class="mobile-nav">
+            <a href="#List" class="mobile-left">
+                <div class="name">Back</div>
+                <div class="arrow">❮</div>
+            </a>
+            <a href="#Generate" class="mobile-right">
+                <div class="arrow">❯</div>
+                <div class="name">Generate Map</div>
+            </a>
+        </div>
     </div>
-    <div class="header-text right">
-        Forward
+    <div class="slide Generate" data-hash="Generate">
+        <div class="nav-strip"></div>
+        <div class="cover-left"></div>
+        <div class="cover-right"></div>
+        <div class="page-wrapper">
+            <div class="row">
+
+            </div>
+            <div class="end">
+                <p></p>
+            </div>
+        </div>
+        <div class="mobile-filler"></div>
+        <div class="mobile-nav">
+
+        </div>
+    </div>
+    <div class="slide Map" data-hash="Map">
+        <div class="nav-strip"></div>
+        <div class="cover-left"></div>
+        <div class="cover-right"></div>
+        <div class="page-wrapper">
+            <div class="row">
+
+            </div>
+            <div class="end">
+                <p></p>
+            </div>
+        </div>
+        <div class="mobile-filler"></div>
+        <a href="#Store" class="mobile-nav">
+            <div class="mobile-left">
+                <div class="name">Back</div>
+                <div class="arrow">❮</div>
+            </div>
+        </a>
     </div>
 </div>
 
+
+<script src="jquery2.1.1.js"></script>
+<script src="owl.carousel.js"></script>
 <script>
-    document.querySelector('#menu').addEventListener('click', function(){
-        if (this.classList.contains('back'))
-            this.classList.remove('back');
-        else
-            this.classList.add('back');
-    })
+    jQuery(document).ready(function () {
+        $('#mask').css('opacity', '0');
+        setTimeout(function () {
+            $('#mask').css('display', 'none');
+        }, 2100);
+    });
+
+    var pageTitles = ["List", "Store", "Generate", "Map"];
+    var pageNames = [[null, "Select Store"], ["Back", "Generate"], [null, null], ["Back", null]];
+    var pageLoads = [[-1, 1],[0, 2],[-1, -1],[1, -1]];
+    var navControl = [1, 1, 1, 1];
+    var prevControl = [0, 1, 0, 1];
+    var nextControl = [1, 1, 0, 0];
+    var currentIndex = 0;
+
+    jQuery(document).ready(function ($) {
+
+        var $sync1 = $(".slider"),
+                $sync2 = $(".nav"),
+                navItems = $($sync2).children(),
+                prevButton = $(".desktop-prev"),
+                nextButton = $(".desktop-next"),
+                prevCover = $(".cover-left"),
+                nextCover = $(".cover-right"),
+                prevName = $(prevButton).find(".name"),
+                nextName = $(nextButton).find(".name"),
+                activeItem = navItems[0];
+
+
+        $(prevButton).hover(function () {
+            $(prevButton).addClass("show");
+            $(prevCover).addClass("show");
+        }, function () {
+            $(prevButton).removeClass("show");
+            $(prevCover).removeClass("show");
+        });
+        $(nextButton).hover(function () {
+            $(nextButton).addClass("show");
+            $(nextCover).addClass("show");
+        }, function () {
+            $(nextButton).removeClass("show");
+            $(nextCover).removeClass("show");
+        });
+
+        function loadPage(index) {
+            currentIndex = index;
+            $(navItems).removeClass("current");
+            activeItem = navItems[index];
+            $(activeItem).addClass('current');
+            if (arguments.length < 2) {
+                location.href = location.pathname + "#" + pageTitles[index];
+            }
+            if (prevControl[index]) {
+                $(prevButton).removeClass("hidden");
+                $(prevCover).removeClass("hidden");
+                $(prevName).html(pageNames[index][0]);
+            }
+            else {
+                $(prevButton).addClass("hidden");
+                $(prevCover).addClass("hidden");
+                $(prevButton).removeClass("show");
+                $(prevCover).removeClass("show");
+            }
+            if (nextControl[index]) {
+                $(nextButton).removeClass("hidden");
+                $(nextCover).removeClass("hidden");
+                $(nextName).html(pageNames[index][1]);
+            }
+            else {
+                $(nextButton).addClass("hidden");
+                $(nextCover).addClass("hidden");
+                $(nextButton).removeClass("show");
+                $(nextCover).removeClass("show");
+            }
+            if (navControl[index]) {
+                $($sync2).removeClass("hidden");
+            }
+            else {
+                $($sync2).addClass("hidden");
+            }
+        }
+
+        history.replaceState(null, "", location.pathname + "#" + pageTitles[0]);
+        loadPage(0, false);
+
+        $(prevButton).click(function () {
+            if (currentIndex > 0) loadPage(pageLoads[currentIndex][0]);
+        });
+        $(nextButton).click(function () {
+            if (currentIndex < pageTitles.length) loadPage(pageLoads[currentIndex][1]);
+        });
+//        $(".mobile-left").click(function () {
+//            if (currentIndex > 0) loadPage(currentIndex - 1);
+//        });
+//        $(".mobile-right").click(function () {
+//            if (currentIndex < pageTitles.length) loadPage(currentIndex + 1);
+//        });
+
+        $sync1
+                .owlCarousel({
+                    items: 1,
+                    autoWidth: false,
+                    URLhashListener: true,
+                })
+                .on('changed.owl.carousel', function (e) {
+                    loadPage(e.item.index);
+                });
+
+        $sync2
+                .owlCarousel({
+                    autoWidth: true,
+                    center: true,
+                    URLhashListener: true,
+                })
+                .on('click', '.owl-item', function () {
+                    loadPage($(this).index());
+                });
+    });
 </script>
 </body>
 </html>
