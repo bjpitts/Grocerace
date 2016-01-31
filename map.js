@@ -1,5 +1,14 @@
 function mapping(notVisited){
 	//var notVisited = [/*user input*/];
+	function distance(firstNodeX,firstNodey,secondNodex, secondNodey)
+{
+	var x1 = firstNodex;
+	var x2 = secondNodex;
+	var yl = firstNodey;
+	var y2 = secondNodey;
+
+	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+}
 	var allGroceries = []
 
 	allGroceries.push({key:"start", end:true, x:1, y:0});
@@ -33,17 +42,19 @@ function mapping(notVisited){
 	allGroceries.push({key:"candy", end:true, x: 5, y: 4 });
 
 
-	var currentNode = "start";
+	var currentNode = "start"	;
 	var nextnode;
 	var directions = [];
 
 	while(notVisited.length != 0)
 	{
-		directions.push(currentNode);
+		directions.push(allGroceries[currentNode].key);
 		var currentMinDist = Number.MAX_SAFE_INTEGER;
 		for (var i = 0; i < notVisited.length; i++) 
-		{
-			var distance = distance(allGroceries[currentNode], allGroceries[notVisited[i]]);
+		{console.log(allGroceries[currentNode])
+			var distance = distance(allGroceries[currentNode].x,
+				allGroceries[currentNode].y, allGroceries[notVisited[i]].x, 
+				allGroceries[notVisited[i]].y);
 			if (distance < currentMinDist)
 			{
 				currentMinDist = distance;
@@ -55,16 +66,18 @@ function mapping(notVisited){
 		notVisited.splice(currentIndex, currentIndex + 1);
 	}
 
-	for(int i = 0; i < directions.length; i++){}
+	for(var i = 0; i < directions.length; i++){
 		document.getElementById(directions[i]).style.color = "blue";
 	}
 }
-function distance(firstNode, secondNode)
-{
-	var x1 = firstNode.x;
-	var x2 = secondNode.x;
-	var yl = firstNode.y;
-	var y2 = secondNode.y;
 
-	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
-}
+	function getIndexFromKey(key, array) {
+		for (var i = 0; i < array.length; i++) {
+			if (array[i].key == key)
+				return i
+		}
+		else return -1;
+
+	}
+
+var x = mapping(["apples, oranges"])
