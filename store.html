@@ -153,6 +153,12 @@ function initMap() {
   setupClickListener('changetype-address', ['address']);
   setupClickListener('changetype-establishment', ['establishment']);
   setupClickListener('changetype-geocode', ['geocode']);
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      
+        console.log("DICK")
+        return false;
+    });
 }
 
     </script>
