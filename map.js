@@ -1,5 +1,14 @@
 function mapping(notVisited){
 	//var notVisited = [/*user input*/];
+	function distance(firstNodeX,firstNodey,secondNodex, secondNodey)
+{
+	var x1 = firstNodex;
+	var x2 = secondNodex;
+	var yl = firstNodey;
+	var y2 = secondNodey;
+
+	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+}
 	var allGroceries = []
 
 	allGroceries.push({key:"start", end:true, x:1, y:0});
@@ -33,38 +42,48 @@ function mapping(notVisited){
 	allGroceries.push({key:"candy", end:true, x: 5, y: 4 });
 
 
-	var currentNode = "start";
-	var nextnode;
+	var currentNodeKey = "start"	;
+	var nodeTogoTowards;
 	var directions = [];
 
 	while(notVisited.length != 0)
-	{
-		directions.push(currentNode);
+	{//console.log(currentNodeKey)
+		directions.push(allGroceries[getIndexFromKey(currentNodeKey,allGroceries)].key);
 		var currentMinDist = Number.MAX_SAFE_INTEGER;
+		//find the minimum distance between current and unvisited
 		for (var i = 0; i < notVisited.length; i++) 
-		{
-			var distance = distance(allGroceries[currentNode], allGroceries[notVisited[i]]);
+		{	
+				console.log(getIndexFromKey(notVisited[i],allGroceries))
+				//console.log(notVisited[0])
+			var distance = distance(
+				allGroceries[getIndexFromKey(currentNodeKey,allGroceries)].x,
+				allGroceries[getIndexFromKey(currentNodeKey,allGroceries)].y, 
+				allGroceries[getIndexFromKey(notVisited[i],allGroceries)].x,
+				allGroceries[getIndexFromKey(notVisited[i],allGroceries)].y
+				);
 			if (distance < currentMinDist)
 			{
 				currentMinDist = distance;
-				nextnode = notVisited[i];
+				nodeTogoTowards = notVisited[i];
 			}
 		}
-		currentNode = nextnode;
-		currentIndex = notVisited.indexOf(currentNode);
+		currentNodeKey = nodeTogoTowards;
+		currentIndex = getIndexFromKey(currentNodeKey,notVisited);
 		notVisited.splice(currentIndex, currentIndex + 1);
 	}
 
-	for(int i = 0; i < directions.length; i++){}
+	for(var i = 0; i < directions.length; i++){
 		document.getElementById(directions[i]).style.color = "blue";
 	}
 }
-function distance(firstNode, secondNode)
-{
-	var x1 = firstNode.x;
-	var x2 = secondNode.x;
-	var yl = firstNode.y;
-	var y2 = secondNode.y;
 
-	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
-}
+	function getIndexFromKey(key, array) {
+		for (var i = 0; i < array.length; i++) {
+			if (array[i].key == key)
+				return i
+		}
+		return -1;
+
+	}
+
+var x = mapping(["apples","oranges"])
