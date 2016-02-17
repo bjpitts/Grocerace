@@ -4,86 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
-    <title>SouICry</title>
+    <title>Grocerace</title>
 
     <link rel="stylesheet" href="materialize.css">
     <link rel="stylesheet" href="owl.carousel.css">
     <link rel="stylesheet" href="style.css">
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script>
-        var itemlist = [];
-        var totalgrocerylist = ['water','energy drinks', 'bottled soda', 'soda cans', 'candy','utensils','chips','popcorn','toppings','popsicles','ice cream','pies', 'frozen fish','frozen vegetables','tv dinners','frozen pizza','apples','buns','bread','cookies','cake','oranges' ];
-        var buffer;
-        $(document).ready(function(){
-            $("#addbutton").click(function(){
-                addItem();
-            });
-        });
-        $(function() {
-            updateBuffer();
-        });
-        $(document).keypress(function (e) {
-            if(e.which ==13){
-                addItem();
-            }
-        });
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
-        function updateBuffer() {
-            buffer = totalgrocerylist;
-            for (var i = 0; i < itemlist.length; i++) {
-                buffer = jQuery.grep(buffer, function(value){
-                    return value != itemlist[i];
-                });
-                console.log("buffer = " + buffer)
-            };
-            var availableTags = buffer;
-            $( "#tags" ).autocomplete({
-                source: availableTags
-            });
-        }
-
-        function addItem() {
-            var input = $("#tags").val().toLowerCase();
-
-            if ($.inArray(input, buffer) != -1 ) {
-                itemlist.push(input);
-                $("#itemlister").html(itemlist);
-                $("#tags").val("");
-                updateBuffer();
-            }
-            else {
-                if ($.inArray($("#tags").val(), itemlist) != -1)
-                    window.alert("You already added that item!")
-                else window.alert("Item not in catalog")
-            }
-        }
-
-        function removeItem(removeditem) {
-            itemlist = jQuery.grep(itemlist, function(value){
-                return value != removeditem;
-            });
-
-        }
-    </script>
 
     <script src="js/materialize.min.js"></script>
 
 
-
+    <!--<script src="picturefill.js"></script>-->
 </head>
 
 <body>
 <div id="mask">
 </div>
-
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <p>You've already added this item.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+    </div>
+</div>
+<!-- Modal Structure -->
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <p>Can't find item in catalog.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+    </div>
+</div>
 <div class="nav">
     <div data-hash="List" class="nav-item">
-        <div>Select Items</div>
+        <div>Add Groceries</div>
     </div>
     <div data-hash="Store" class="nav-item">
         <div>Select Store</div>
@@ -119,62 +82,7 @@
                 </div>
             </div>
             <div class="row" id="list">
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div><div class="chip">
-                Tag
-                <i class="material-icons">close</i>
-            </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div><div class="chip">
-                Tag
-                <i class="material-icons">close</i>
-            </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div><div class="chip">
-                Tag
-                <i class="material-icons">close</i>
-            </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div><div class="chip">
-                Tag
-                <i class="material-icons">close</i>
-            </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="chip">
-                    Tag
-                    <i class="material-icons">close</i>
-                </div>
+
 
             </div>
             <div class="end">
@@ -183,6 +91,75 @@
         </div>
 
 
+        <script>
+            var itemlist = [];
+            var totalgrocerylist = ['water', 'energy drinks', 'bottled soda', 'soda cans', 'candy', 'utensils', 'chips', 'popcorn', 'toppings', 'popsicles', 'ice cream', 'pies', 'frozen fish', 'frozen vegetables', 'tv dinners', 'frozen pizza', 'apples', 'buns', 'bread', 'cookies', 'cake', 'oranges'];
+            var buffer;
+            $(document).ready(function () {
+                $("#addbutton").click(function () {
+                    addItem();
+                });
+                updateBuffer();
+                $(document).keypress(function (e) {
+                    if (e.which == 13) {
+                        addItem();
+                    }
+                });
+
+                function updateBuffer() {
+                    buffer = totalgrocerylist;
+                    for (var i = 0; i < itemlist.length; i++) {
+                        buffer = jQuery.grep(buffer, function (value) {
+                            return value != itemlist[i];
+                        });
+                        console.log("buffer = " + buffer)
+                    }
+                    ;
+                    var availableTags = buffer;
+                    $("#tags").autocomplete({
+                        source: availableTags
+                    });
+                }
+
+                function removeItem(removeditem) {
+                    itemlist = jQuery.grep(itemlist, function (value) {
+                        return value != removeditem;
+                    });
+                }
+
+                function addItem() {
+                    var input = $("#tags").val().toLowerCase();
+
+                    if ($.inArray(input, buffer) != -1) {
+                        itemlist.push(input);
+
+                        $('#list').append('<div class="chip">' + input + '<i class="material-icons">close</i></div>');
+                        $("#itemlister").html(itemlist);
+                        $("#tags").val("");
+                        updateBuffer();
+
+                        $('.chip .material-icons').click(function(){
+                            var name = $(this).parent().text();
+                            removeItem(name.substring(0, name.length - 6));
+                        });
+                    }
+                    else {
+                        if ($.inArray($("#tags").val(), itemlist) != -1) {
+                            //alert("You already added that item!")
+                            $('#modal1').openModal();
+                        }
+                        else {
+                            //alert("Item does not exist in catalog.")
+                            $('#modal2').openModal();
+                        }
+                    }
+                }
+
+
+            });
+
+
+        </script>
 
         <div class="mobile-filler"></div>
         <div class="mobile-nav">
@@ -200,11 +177,74 @@
 
             <div class="row">
 
+                <!--<a id="select-store" class="waves-effect waves-light btn">Select Store</a>-->
+                <iframe src="store.html" height="800" style="width: 100%;"></iframe>
+                <!--<div id="map"></div>-->
+                <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtRAOut0Iqd_pI-dOyWMCUAneIUF62moU&signed_in=true&libraries=places&callback=initMap" async defer></script>-->
+
             </div>
             <div class="end">
                 <p></p>
             </div>
         </div>
+        <script>
+            // This example requires the Places library. Include the libraries=places
+            // parameter when you first load the API. For example:
+            // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+            var map;
+            var infowindow;
+            var storelist;
+
+            function initMap() {
+                var pyrmont = {lat: -33.867, lng: 151.195};
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: pyrmont,
+                    zoom: 15
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+                var service = new google.maps.places.PlacesService(map);
+                service.nearbySearch({
+                    location: pyrmont,
+                    radius: 1000,
+                    types: ['grocery_or_supermarket']
+                }, callback);
+            }
+
+            function callback(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        createMarker(results[i]);
+                    }
+                }
+            }
+
+            function createMarker(place) {
+                var placeLoc = place.geometry.location;
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(place.name)
+                    storelist = place.name;
+                    console.log(storelist)
+                    $("#textstuff").text(storelist)
+                    infowindow.open(map, this);
+                });
+            }
+
+
+            $('#select-store').click(function(){
+                window.open("store.html");
+            });
+
+        </script>
+
+
         <div class="mobile-filler"></div>
         <div class="mobile-nav">
             <a href="#List" class="mobile-left">
@@ -223,9 +263,65 @@
         <div class="cover-left"></div>
         <div class="cover-right"></div>
         <div class="page-wrapper">
-            <div class="row">
+            <div class="row" style="height: calc(100vh - 200px);">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-flow: column nowrap; align-items: center; justify-content: center">
+                    <img id="race" class="race racing"
+                         style="width: 600px;max-width: 90%;position: relative;margin: auto;top: 50%; transform: translate(0, -50%); ;"
+                         src="racing.png"/>
 
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
             <div class="end">
                 <p></p>
             </div>
@@ -241,7 +337,7 @@
         <div class="cover-right"></div>
         <div class="page-wrapper">
             <div class="row">
-
+                <iframe src="map.html" style="height: 720px;width:1280px;max-width: 100%; max-height: 100%;"></iframe>
             </div>
             <div class="end">
                 <p></p>
@@ -258,10 +354,9 @@
 </div>
 
 
-<script src="jquery2.1.1.js"></script>
 <script src="owl.carousel.js"></script>
 <script>
-    jQuery(document).ready(function () {
+    $(document).ready(function () {
         $('#mask').css('opacity', '0');
         setTimeout(function () {
             $('#mask').css('display', 'none');
@@ -276,12 +371,11 @@
     var nextControl = [1, 1, 0, 0];
     var currentIndex = 0;
 
-    jQuery(document).ready(function ($) {
+    $(document).ready(function () {
 
-
-        var $sync1 = $(".slider"),
-                $sync2 = $(".nav"),
-                navItems = $($sync2).children(),
+        var sync1 = $(".slider"),
+                sync2 = $(".nav"),
+                navItems = $(sync2).children(),
                 prevButton = $(".desktop-prev"),
                 nextButton = $(".desktop-next"),
                 prevCover = $(".cover-left"),
@@ -307,6 +401,14 @@
         });
 
         function loadPage(index) {
+            if (currentIndex == 2) {
+                setTimeout(function () {
+                    currentIndex = 3;
+                    loadPage(3);
+
+                }, 2000);
+            }
+
             currentIndex = index;
             $(navItems).removeClass("current");
             activeItem = navItems[index];
@@ -337,10 +439,10 @@
                 $(nextCover).removeClass("show");
             }
             if (navControl[index]) {
-                $($sync2).removeClass("hidden");
+                $(sync2).removeClass("hidden");
             }
             else {
-                $($sync2).addClass("hidden");
+                $(sync2).addClass("hidden");
             }
         }
 
@@ -349,9 +451,11 @@
 
         $(prevButton).click(function () {
             if (currentIndex > 0) loadPage(pageLoads[currentIndex][0]);
+
         });
         $(nextButton).click(function () {
             if (currentIndex < pageTitles.length) loadPage(pageLoads[currentIndex][1]);
+
         });
 //        $(".mobile-left").click(function () {
 //            if (currentIndex > 0) loadPage(currentIndex - 1);
@@ -360,8 +464,7 @@
 //            if (currentIndex < pageTitles.length) loadPage(currentIndex + 1);
 //        });
 
-        $sync1
-                .owlCarousel({
+        $(sync1).owlCarousel({
                     items: 1,
                     autoWidth: false,
                     URLhashListener: true,
@@ -370,8 +473,7 @@
                     loadPage(e.item.index);
                 });
 
-        $sync2
-                .owlCarousel({
+        $(sync2).owlCarousel({
                     autoWidth: true,
                     center: true,
                     URLhashListener: true,
